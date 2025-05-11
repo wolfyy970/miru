@@ -124,7 +124,7 @@ This document outlines the tasks to build the Miru extension based on the PRD an
 
 ---
 
-*   [ ] **Task 3: Screenshot Capture (`captureVisibleTab`)**
+*   [x] **Task 3: Screenshot Capture (`captureVisibleTab`)**
     *   **Risk:** Medium
     *   **Implementation:**
         The AI assistant will:
@@ -146,7 +146,7 @@ This document outlines the tasks to build the Miru extension based on the PRD an
         3.  Navigate to any sample webpage.
         4.  Open the Miru popup and click the "Test Capture" button.
         5.  Verify that an image of the current tab's visible content appears within the popup.
-    *   **Mark Complete:**
+    *   **Mark Complete:** *[x]*
     *   **Commit & Push (On Success):**
         ```bash
         git add . && git commit -m "Refactor: Complete Step 3 - Screenshot Capture (captureVisibleTab)" && git push

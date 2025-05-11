@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 @customElement('miru-popup')
 export class MiruPopup extends LitElement {
@@ -31,14 +31,48 @@ export class MiruPopup extends LitElement {
       border-radius: 4px;
       cursor: pointer;
       font-size: 1em;
+      margin-top: 5px; /* Add some space above the second button */
     }
     button:hover {
       background-color: #0056b3;
+    }
+    img#screenshotPreview {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      margin-top: 10px;
     }
   `;
 
   @property({ type: String })
   figmaFrameId = '';
+
+  @state()
+  private _screenshotDataUrl = '';
+
+  @state()
+  private _captureError = ''; // To store any error messages
+
+  constructor() {
+    super();
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      if (message.type === 'SCREENSHOT_TAKEN') {
+        if (message.error) {
+          console.error('Error from service worker during screenshot:', message.error);
+          this._screenshotDataUrl = ''; // Clear image on error
+          this._captureError = message.error; // Display error
+        } else if (message.dataUrl) {
+          this._screenshotDataUrl = message.dataUrl;
+          this._captureError = ''; // Clear any previous error
+        } else {
+          console.warn('SCREENSHOT_TAKEN message received without dataUrl or error.');
+          this._screenshotDataUrl = '';
+          this._captureError = 'Unexpected response from service worker.';
+        }
+      }
+      // Not sending async response from here, so return false or nothing.
+      return false;
+    });
+  }
 
   render() {
     return html`
@@ -52,6 +86,13 @@ export class MiruPopup extends LitElement {
           placeholder="e.g., abc123xyz/123:456"
         />
         <button @click=\"${this._onCompare}\">Compare</button>
+        <button @click=\"${this._onTestCapture}\">Test Capture</button>
+        ${this._captureError 
+          ? html`<p style=\"color: red;\">Error: ${this._captureError}</p>`
+          : ''}
+        ${this._screenshotDataUrl
+          ? html`<img id=\"screenshotPreview\" src=\"${this._screenshotDataUrl}\" alt=\"Screenshot Preview\" />`
+          : ''}
       </div>
     `;
   }
@@ -59,6 +100,19 @@ export class MiruPopup extends LitElement {
   private _onCompare() {
     // Initially non-functional, will be implemented in a later task.
     console.log('Compare button clicked. Figma Frame ID:', this.figmaFrameId);
+  }
+
+  private _onTestCapture() {
+    this._screenshotDataUrl = ''; // Clear previous screenshot
+    this._captureError = ''; // Clear previous error
+    chrome.runtime.sendMessage({ type: 'CAPTURE_SCREENSHOT' }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error('Error sending CAPTURE_SCREENSHOT message:', chrome.runtime.lastError.message);
+        return;
+      }
+      // Handle response from service worker if any (e.g., confirmation)
+      // console.log('Response from service worker after capture request:', response);
+    });
   }
 }
 
