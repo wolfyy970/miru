@@ -1,0 +1,1 @@
+console.log('Miru diff-worker.ts loaded'); 

@@ -1,0 +1,1 @@
+console.log('Miru popup.ts loaded'); 

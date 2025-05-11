@@ -1,0 +1,23 @@
+{
+  "name": "miru",
+  "version": "0.1.0",
+  "description": "Code to Figma design validation.",
+  "scripts": {
+    "build": "npx tsup",
+    "dev": "npx tsup --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "esbuild": "^0.25.4",
+    "esbuild-plugin-copy": "^2.1.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "lit": "^3.3.0",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0"
+  }
+}

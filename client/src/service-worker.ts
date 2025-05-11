@@ -1,0 +1,1 @@
+console.log('Miru service-worker.ts loaded'); 
