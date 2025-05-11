@@ -15,6 +15,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
+  noExternal: ['lit'],
   outExtension() {
     return {
       js: `.js`,

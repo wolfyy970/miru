@@ -1,0 +1,16 @@
+body {
+  width: 300px;
+  height: auto;
+  margin: 8px;
+  font-family: sans-serif;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input {
+  padding: 4px;
+} 

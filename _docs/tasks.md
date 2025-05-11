@@ -83,7 +83,7 @@ This document outlines the tasks to build the Miru extension based on the PRD an
 
 ---
 
-*   [ ] **Task 2: Basic Extension UI - Toolbar Button & Placeholder Panel**
+*   [x] **Task 2: Basic Extension UI - Toolbar Button & Placeholder Panel**
     *   **Risk:** Low
     *   **Implementation:**
         The AI assistant will:
@@ -115,7 +115,7 @@ This document outlines the tasks to build the Miru extension based on the PRD an
         3.  Verify the Miru toolbar button appears.
         4.  Click the toolbar button. The popup should appear.
         5.  Verify the "Figma Frame ID" input field and "Compare" button are visible in the popup.
-    *   **Mark Complete:**
+    *   **Mark Complete:** *[x]*
     *   **Commit & Push (On Success):**
         ```bash
         git add . && git commit -m "Refactor: Complete Step 2 - Basic Extension UI - Toolbar Button & Placeholder Panel" && git push
